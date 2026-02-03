@@ -110,13 +110,20 @@ export function useVariantSelection({
 
   // Resolve the variant that matches all selected options
   const resolvedVariant = useMemo(() => {
+    // If no options, return first available variant (default variant)
+    if (options.length === 0 && variants.length > 0) {
+      return variants.find((v) => v.availableForSale) || variants[0] || null;
+    }
+
+    // Match variant based on selected options
     return variants.find((variant) => {
       // Check if variant's selectedOptions match our selectedOptions
+      // For variants with no selectedOptions (default variant), this will match empty selectedOptions
       return variant.selectedOptions.every(
         (opt) => selectedOptions[opt.name] === opt.value
       );
     }) || null;
-  }, [variants, selectedOptions]);
+  }, [variants, selectedOptions, options.length]);
 
   // Get price from resolved variant or fallback to product price range
   const price = useMemo(() => {

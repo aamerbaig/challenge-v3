@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Skeleton } from "./Skeleton";
 import { ImageGallery } from "./ImageGallery";
 import { VariantSelector } from "./VariantSelector";
@@ -26,7 +26,6 @@ export function ModalContent({
     useState<GetProductByHandleQuery["product"] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
 
   // Use variant selection hook - MUST be called before any conditional returns
   // Provide empty arrays as defaults when product is not loaded yet
@@ -75,18 +74,6 @@ export function ModalContent({
     };
   }, [productHandle]);
 
-  // Focus management: move focus into modal on mount/update
-  useEffect(() => {
-    if (contentRef.current && !isLoading) {
-      // Focus the first focusable element or the content container
-      const firstFocusable =
-        contentRef.current.querySelector<HTMLElement>(
-          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-        ) || contentRef.current;
-      firstFocusable.focus();
-    }
-  }, [isLoading, product]);
-
   if (isLoading) {
     return <Skeleton />;
   }
@@ -120,7 +107,6 @@ export function ModalContent({
 
   return (
     <div
-      ref={contentRef}
       className="flex flex-col md:flex-row h-full max-h-[90vh] overflow-auto"
     >
       {/* Image Gallery - Left side on desktop, top on mobile */}

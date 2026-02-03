@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
+    "prebuild": "pnpm codegen",
     "build": "next build",
     "start": "next start",
     "codegen": "graphql-codegen",
