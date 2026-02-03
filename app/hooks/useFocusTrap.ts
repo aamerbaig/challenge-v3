@@ -6,7 +6,7 @@ import { useEffect, useRef } from "react";
  * Hook to trap focus within a container element
  * Loops focus between first and last focusable elements
  */
-export function useFocusTrap(isActive: boolean): React.RefObject<HTMLDivElement> {
+export function useFocusTrap(isActive: boolean): React.RefObject<HTMLDivElement | null> {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

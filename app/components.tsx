@@ -52,8 +52,7 @@ export const NameInput = ({ children, ...props }: NameInputProps) => {
   );
 };
 
-type NameDisplayProps = {};
-export const NameDisplay = (_: NameDisplayProps) => {
+export const NameDisplay = () => {
   const [name] = useNameInput();
   return name;
 };
