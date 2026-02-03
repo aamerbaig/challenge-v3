@@ -5,9 +5,13 @@ import { useVariantSelection } from "@/app/hooks/useVariantSelection";
 import { useReducedMotion } from "@/app/hooks/useReducedMotion";
 import type { GetProductByHandleQuery } from "@/lib/shopify/graphql/.generated/storefront.generated";
 
+type Product = NonNullable<GetProductByHandleQuery["product"]>;
+type ProductOption = Product["options"][number];
+type ProductVariant = Product["variants"]["nodes"][number];
+
 type VariantSelectorProps = {
-  options: GetProductByHandleQuery["product"]["options"];
-  variants: GetProductByHandleQuery["product"]["variants"]["nodes"];
+  options: ProductOption[];
+  variants: ProductVariant[];
 };
 
 /**
@@ -65,7 +69,6 @@ export function VariantSelector({
                       !prefersReducedMotion && isAvailable ? { scale: 0.95 } : {}
                     }
                     aria-label={`Select ${option.name} ${value}${!isAvailable ? " (unavailable)" : ""}`}
-                    aria-pressed={isSelected}
                     aria-disabled={!isAvailable}
                     role="radio"
                     aria-checked={isSelected}
