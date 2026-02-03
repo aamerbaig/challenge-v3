@@ -5,7 +5,8 @@ import { motion, AnimatePresence } from "motion/react";
 import { useReducedMotion } from "@/app/hooks/useReducedMotion";
 import type { GetProductByHandleQuery } from "@/lib/shopify/graphql/.generated/storefront.generated";
 
-type ProductVariant = GetProductByHandleQuery["product"]["variants"]["nodes"][number];
+type Product = NonNullable<GetProductByHandleQuery["product"]>;
+type ProductVariant = Product["variants"]["nodes"][number];
 
 type AddToBagButtonProps = {
   resolvedVariant: ProductVariant | null;
