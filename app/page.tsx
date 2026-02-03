@@ -1,27 +1,24 @@
-import * as Components from "./components";
-import { client } from "@/lib/shopify/serverClient";
-import { getShop } from "@/lib/shopify/graphql/query";
 
+import { ProductGrid } from "./components/ProductGrid";
+import { ModalProvider } from "./components/ModalProvider";
+
+/**
+ * Home page displaying products from a Shopify collection
+ * 
+ * Note: Collection handle should be provided via environment variable
+ * NEXT_PUBLIC_COLLECTION_HANDLE or defaults to "all"
+ */
 export default async function Home() {
-  "use cache";
-  const resp = await client.request(getShop);
+  // TODO: Get collection handle from env or make configurable
+  // For now, using "all" as default (common Shopify collection)
+  const collectionHandle =
+    process.env.NEXT_PUBLIC_COLLECTION_HANDLE || "all";
+
   return (
-    <Components.NameInputRoot initialValue="world">
-      <main className="w-screen h-screen flex flex-col gap-8 justify-center items-center max-w-2xl mx-auto">
-        <h1 className="text-6xl">
-          Hello <Components.NameDisplay /> and good luck 😄!
-        </h1>
-        {resp.data?.shop.name && (
-          <h2 className="text-4xl">Store name: {resp.data?.shop?.name}</h2>
-        )}
-        <form>
-          <Components.NameInput
-            className="border-2 border-yellow-500 rounded p-4 text-2xl w-full dark:bg-black dark:text-gray-300 dark:placeholder:text-gray-400"
-            name="name"
-            placeholder="name"
-          />
-        </form>
+    <ModalProvider>
+      <main className="min-h-screen bg-white dark:bg-black">
+        <ProductGrid collectionHandle={collectionHandle} />
       </main>
-    </Components.NameInputRoot>
+    </ModalProvider>
   );
 }

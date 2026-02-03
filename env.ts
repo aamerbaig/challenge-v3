@@ -22,6 +22,7 @@ export const env = createEnv({
     NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN: NameToStoreDomain,
     NEXT_PUBLIC_SHOPIFY_STORE_NAME: StoreName,
     NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_VERSION: ApiVersion,
+    NEXT_PUBLIC_COLLECTION_HANDLE: z.string().optional(),
   },
   runtimeEnv: {
     VERCEL_ENV: process.env.VERCEL_ENV || "development",
@@ -36,5 +37,7 @@ export const env = createEnv({
       process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_VERSION,
     NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_VERSION:
       process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_VERSION,
+    NEXT_PUBLIC_COLLECTION_HANDLE:
+      process.env.NEXT_PUBLIC_COLLECTION_HANDLE,
   },
 });
