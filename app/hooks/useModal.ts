@@ -7,7 +7,7 @@ type UseModalReturn = {
   selectedProductHandle: string | null;
   openModal: (handle: string) => void;
   closeModal: () => void;
-  triggerRef: React.RefObject<HTMLElement>;
+  triggerRef: React.RefObject<HTMLElement | null>;
 };
 
 /**
